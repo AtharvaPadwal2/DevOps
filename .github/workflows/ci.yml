@@ -22,7 +22,8 @@ jobs:
         with:
           python-version: "3.12"
 
+          
       - name: Run Application
         run: |
-          echo -e "10\n5" | python app.py
+          echo -e "10\n5" | python DevOps_Practical_3/app.py
 
