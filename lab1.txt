@@ -1,1 +1,1 @@
-Git Lab 1 - Change from MAIN BRANCH
+Git Lab 1 - Merge Conflict Successfully Resolved
