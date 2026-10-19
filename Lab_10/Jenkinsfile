@@ -10,14 +10,17 @@ pipeline {
             }
         }
 
-        stage('Automated Testing') {
-            steps {
-                sh '''
-                    cd Lab_7/qrproject
-                    python3 -m pytest -q
-                '''
-            }
+        
+stage('Automated Testing') {
+    steps {
+        dir('Lab_7/qrproject') {
+            sh '''
+                /var/jenkins_home/pytest-venv/bin/python -m pytest -q
+            '''
         }
+    }
+}
+
 
         stage('SonarQube Analysis') {
             steps {
