@@ -1,0 +1,63 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/AtharvaPadwal2/DevOps.git'
+            }
+        }
+
+        stage('Automated Testing') {
+            steps {
+                sh '''
+                    cd Lab_7/qrproject
+                    python3 -m pytest -q
+                '''
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                dir('Lab_7/qrproject') {
+                    withSonarQubeEnv('SonarQube-Local') {
+                        sh '''
+                            /var/jenkins_home/sonar-venv/bin/pysonar \
+                              --sonar-host-url="$SONAR_HOST_URL" \
+                              --sonar-token="$SONAR_AUTH_TOKEN" \
+                              --sonar-project-key=devops-lab8-qr
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    docker build -t devops-lab10 ./DevOps_Practical_3
+                '''
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                sh '''
+                    docker run --rm devops-lab10
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'End-to-End DevOps Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Check console logs.'
+        }
+    }
+}
