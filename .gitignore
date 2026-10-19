@@ -1,0 +1,14 @@
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
+
+# SonarQube
+**/.scannerwork/
+
+# Python
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
