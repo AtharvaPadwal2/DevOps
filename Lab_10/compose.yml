@@ -1,0 +1,9 @@
+
+services:
+  devops-app:
+    build:
+      context: ../DevOps_Practical_3
+      dockerfile: Dockerfile
+    image: devops-lab10:latest
+    container_name: devops-lab10
+    restart: "no"
