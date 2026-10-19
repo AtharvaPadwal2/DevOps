@@ -45,13 +45,19 @@ stage('Automated Testing') {
             }
         }
 
-        stage('Deployment') {
-            steps {
-                sh '''
-                    docker run --rm devops-lab10
-                '''
-            }
+        
+stage('Deployment') {
+    steps {
+        dir('Lab_10') {
+            sh '''
+                docker compose up --build \
+                  --abort-on-container-exit \
+                  --exit-code-from devops-app
+            '''
         }
+    }
+}
+
     }
 
     post {
